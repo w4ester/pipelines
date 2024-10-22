@@ -1,8 +1,8 @@
 from typing import List, Union, Generator, Iterator
 from pydantic import BaseModel
 from schemas import OpenAIChatMessage
-import requests
 import os
+from security import safe_requests
 
 
 class Pipeline:
@@ -44,7 +44,7 @@ class Pipeline:
             for query in [user_message]:
                 query = query.replace(" ", "_")
 
-                r = requests.get(
+                r = safe_requests.get(
                     f"https://en.wikipedia.org/w/api.php?action=opensearch&search={query}&limit=1&namespace=0&format=json"
                 )
 
@@ -54,7 +54,7 @@ class Pipeline:
 
             context = None
             if len(titles) > 0:
-                r = requests.get(
+                r = safe_requests.get(
                     f"https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles={'|'.join(titles)}"
                 )
                 response = r.json()

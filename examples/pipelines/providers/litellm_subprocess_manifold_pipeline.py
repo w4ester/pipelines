@@ -18,6 +18,7 @@ import os
 import asyncio
 import subprocess
 import yaml
+from security import safe_requests
 
 
 class Pipeline:
@@ -158,7 +159,7 @@ class Pipeline:
     def get_litellm_models(self):
         if self.background_process:
             try:
-                r = requests.get(
+                r = safe_requests.get(
                     f"http://{self.valves.LITELLM_PROXY_HOST}:{self.valves.LITELLM_PROXY_PORT}/v1/models"
                 )
                 models = r.json()

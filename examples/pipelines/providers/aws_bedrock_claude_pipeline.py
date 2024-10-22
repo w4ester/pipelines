@@ -19,9 +19,9 @@ import boto3
 from pydantic import BaseModel
 
 import os
-import requests
 
 from utils.pipelines.main import pop_system_message
+from security import safe_requests
 
 
 class Pipeline:
@@ -159,7 +159,7 @@ class Pipeline:
 
             img_stream = BytesIO(image_data)
         else:
-            img_stream = requests.get(image["url"]).content
+            img_stream = safe_requests.get(image["url"]).content
         return {
             "image": {"format": "png" if image["url"].endswith(".png") else "jpeg",
                       "source": {"bytes": img_stream.read()}}
