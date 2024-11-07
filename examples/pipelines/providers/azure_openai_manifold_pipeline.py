@@ -84,7 +84,7 @@ class Pipeline:
                 json=filtered_body,
                 headers=headers,
                 stream=True,
-            )
+            timeout=60)
 
             r.raise_for_status()
             if body["stream"]:

@@ -45,8 +45,8 @@ class Pipeline:
                 query = query.replace(" ", "_")
 
                 r = requests.get(
-                    f"https://en.wikipedia.org/w/api.php?action=opensearch&search={query}&limit=1&namespace=0&format=json"
-                )
+                    f"https://en.wikipedia.org/w/api.php?action=opensearch&search={query}&limit=1&namespace=0&format=json", 
+                timeout=60)
 
                 response = r.json()
                 titles = titles + response[1]
@@ -55,8 +55,8 @@ class Pipeline:
             context = None
             if len(titles) > 0:
                 r = requests.get(
-                    f"https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles={'|'.join(titles)}"
-                )
+                    f"https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles={'|'.join(titles)}", 
+                timeout=60)
                 response = r.json()
                 # get extracts
                 pages = response["query"]["pages"]
