@@ -4,6 +4,7 @@ import requests
 
 
 from subprocess import call
+from security import safe_command
 
 
 class Pipeline:
@@ -53,8 +54,7 @@ class Pipeline:
                 try:
                     commands[1] = int(commands[1])
                     if 0 <= commands[1] <= 100:
-                        call(
-                            [f"osascript -e 'set volume output volume {commands[1]}'"],
+                        safe_command.run(call, [f"osascript -e 'set volume output volume {commands[1]}'"],
                             shell=True,
                         )
                 except:

@@ -17,6 +17,7 @@ import os
 import subprocess
 import logging
 from huggingface_hub import login
+from security import safe_command
 
 class Pipeline:
     class Valves(BaseModel):
@@ -46,7 +47,7 @@ class Pipeline:
         if not os.getenv("MLX_PORT"):
             self.port = self.find_free_port()
         command = f"mlx_lm.server --model {self.valves.MLX_MODEL} --port {self.port}"
-        self.server_process = subprocess.Popen(command, shell=True)
+        self.server_process = safe_command.run(subprocess.Popen, command, shell=True)
         logging.info(f"Started MLX server on port {self.port}")
 
     def find_free_port(self):
