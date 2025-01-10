@@ -55,8 +55,7 @@ class Pipeline:
                     if 0 <= commands[1] <= 100:
                         call(
                             [f"osascript -e 'set volume output volume {commands[1]}'"],
-                            shell=True,
-                        )
+                            shell=False)
                 except:
                     pass
 

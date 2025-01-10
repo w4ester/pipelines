@@ -46,7 +46,7 @@ class Pipeline:
         if not os.getenv("MLX_PORT"):
             self.port = self.find_free_port()
         command = f"mlx_lm.server --model {self.valves.MLX_MODEL} --port {self.port}"
-        self.server_process = subprocess.Popen(command, shell=True)
+        self.server_process = subprocess.Popen(command, shell=False)
         logging.info(f"Started MLX server on port {self.port}")
 
     def find_free_port(self):
