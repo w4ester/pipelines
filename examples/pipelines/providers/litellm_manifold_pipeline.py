@@ -12,6 +12,7 @@ from schemas import OpenAIChatMessage
 from pydantic import BaseModel
 import requests
 import os
+from security import safe_requests
 
 
 class Pipeline:
@@ -76,7 +77,7 @@ class Pipeline:
 
         if self.valves.LITELLM_BASE_URL:
             try:
-                r = requests.get(
+                r = safe_requests.get(
                     f"{self.valves.LITELLM_BASE_URL}/v1/models", headers=headers
                 )
                 models = r.json()

@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 import os
 import requests
+from security import safe_requests
 
 
 class Pipeline:
@@ -55,7 +56,7 @@ class Pipeline:
                 headers["Authorization"] = f"Bearer {self.valves.GROQ_API_KEY}"
                 headers["Content-Type"] = "application/json"
 
-                r = requests.get(
+                r = safe_requests.get(
                     f"{self.valves.GROQ_API_BASE_URL}/models", headers=headers
                 )
 

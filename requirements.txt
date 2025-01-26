@@ -64,3 +64,4 @@ beautifulsoup4
 # Llama Index for RAG
 llama-index
 llama-index-llms-ollama
+security==1.3.1

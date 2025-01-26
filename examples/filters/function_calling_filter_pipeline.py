@@ -1,10 +1,10 @@
 import os
-import requests
 from typing import Literal, List, Optional
 from datetime import datetime
 
 
 from blueprints.function_calling_blueprint import Pipeline as FunctionCallingBlueprint
+from security import safe_requests
 
 
 class Pipeline(FunctionCallingBlueprint):
@@ -55,7 +55,7 @@ class Pipeline(FunctionCallingBlueprint):
                     "units": units,
                 }
 
-                response = requests.get(
+                response = safe_requests.get(
                     "http://api.openweathermap.org/data/2.5/weather", params=params
                 )
                 response.raise_for_status()  # Raises an HTTPError for bad responses

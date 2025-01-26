@@ -20,6 +20,7 @@ import asyncio
 from functools import lru_cache
 
 from utils.pipelines.main import get_last_user_message, get_last_assistant_message
+from security import safe_requests
 
 class Pipeline:
     class Valves(BaseModel):
@@ -66,7 +67,7 @@ class Pipeline:
         }
         
         try:
-            r = requests.get(url, params=params)
+            r = safe_requests.get(url, params=params)
             r.raise_for_status()
             result = r.json()
             translated_text = ''.join([sentence[0] for sentence in result[0]])

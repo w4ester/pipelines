@@ -14,6 +14,7 @@ import pytz
 from difflib import get_close_matches
 
 from blueprints.function_calling_blueprint import Pipeline as FunctionCallingBlueprint
+from security import safe_requests
 
 class Pipeline(FunctionCallingBlueprint):
     class Valves(FunctionCallingBlueprint.Valves):
@@ -51,7 +52,7 @@ class Pipeline(FunctionCallingBlueprint):
                     "Content-Type": "application/json",
                 }
 
-                response = requests.get(url, headers=headers)
+                response = safe_requests.get(url, headers=headers)
                 response.raise_for_status()  # Raises an HTTPError for bad responses
                 data = response.json()
 

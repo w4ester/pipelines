@@ -15,6 +15,7 @@ from schemas import OpenAIChatMessage
 from typing import List, Union, Generator, Iterator
 from pydantic import BaseModel
 import requests
+from security import safe_requests
 
 
 class Pipeline:
@@ -62,7 +63,7 @@ class Pipeline:
                 headers["Authorization"] = f"Bearer {self.valves.COHERE_API_KEY}"
                 headers["Content-Type"] = "application/json"
 
-                r = requests.get(
+                r = safe_requests.get(
                     f"{self.valves.COHERE_API_BASE_URL}/models", headers=headers
                 )
 

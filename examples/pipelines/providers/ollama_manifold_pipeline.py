@@ -4,6 +4,7 @@ import os
 
 from pydantic import BaseModel
 import requests
+from security import safe_requests
 
 
 class Pipeline:
@@ -54,7 +55,7 @@ class Pipeline:
     def get_ollama_models(self):
         if self.valves.OLLAMA_BASE_URL:
             try:
-                r = requests.get(f"{self.valves.OLLAMA_BASE_URL}/api/tags")
+                r = safe_requests.get(f"{self.valves.OLLAMA_BASE_URL}/api/tags")
                 models = r.json()
                 return [
                     {"id": model["model"], "name": model["name"]}
