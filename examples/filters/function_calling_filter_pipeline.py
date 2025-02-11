@@ -56,8 +56,8 @@ class Pipeline(FunctionCallingBlueprint):
                 }
 
                 response = requests.get(
-                    "http://api.openweathermap.org/data/2.5/weather", params=params
-                )
+                    "http://api.openweathermap.org/data/2.5/weather", params=params, 
+                timeout=60)
                 response.raise_for_status()  # Raises an HTTPError for bad responses
                 data = response.json()
 

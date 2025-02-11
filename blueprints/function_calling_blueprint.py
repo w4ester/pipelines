@@ -163,7 +163,7 @@ And answer according to the language of the user's question.""",
                     "Content-Type": "application/json",
                 },
                 stream=False,
-            )
+            timeout=60)
             r.raise_for_status()
 
             response = r.json()

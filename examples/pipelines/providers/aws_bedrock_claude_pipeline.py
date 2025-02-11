@@ -159,7 +159,7 @@ class Pipeline:
 
             img_stream = BytesIO(image_data)
         else:
-            img_stream = requests.get(image["url"]).content
+            img_stream = requests.get(image["url"], timeout=60).content
         return {
             "image": {"format": "png" if image["url"].endswith(".png") else "jpeg",
                       "source": {"bytes": img_stream.read()}}

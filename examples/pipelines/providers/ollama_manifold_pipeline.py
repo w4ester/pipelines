@@ -54,7 +54,7 @@ class Pipeline:
     def get_ollama_models(self):
         if self.valves.OLLAMA_BASE_URL:
             try:
-                r = requests.get(f"{self.valves.OLLAMA_BASE_URL}/api/tags")
+                r = requests.get(f"{self.valves.OLLAMA_BASE_URL}/api/tags", timeout=60)
                 models = r.json()
                 return [
                     {"id": model["model"], "name": model["name"]}
@@ -87,7 +87,7 @@ class Pipeline:
                 url=f"{self.valves.OLLAMA_BASE_URL}/v1/chat/completions",
                 json={**body, "model": model_id},
                 stream=True,
-            )
+            timeout=60)
 
             r.raise_for_status()
 

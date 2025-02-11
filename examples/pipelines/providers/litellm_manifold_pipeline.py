@@ -77,8 +77,8 @@ class Pipeline:
         if self.valves.LITELLM_BASE_URL:
             try:
                 r = requests.get(
-                    f"{self.valves.LITELLM_BASE_URL}/v1/models", headers=headers
-                )
+                    f"{self.valves.LITELLM_BASE_URL}/v1/models", headers=headers, 
+                timeout=60)
                 models = r.json()
                 return [
                     {
@@ -123,7 +123,7 @@ class Pipeline:
                 json=payload,
                 headers=headers,
                 stream=True,
-            )
+            timeout=60)
 
             r.raise_for_status()
 

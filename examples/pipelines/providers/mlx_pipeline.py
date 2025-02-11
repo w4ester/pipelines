@@ -103,8 +103,8 @@ class Pipeline:
 
         try:
             r = requests.post(
-                url, headers=headers, json=payload, stream=body.get("stream", False)
-            )
+                url, headers=headers, json=payload, stream=body.get("stream", False), 
+            timeout=60)
             r.raise_for_status()
 
             if body.get("stream", False):
