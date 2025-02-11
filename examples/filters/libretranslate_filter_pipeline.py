@@ -80,8 +80,8 @@ class Pipeline:
 
         try:
             r = requests.post(
-                f"{self.valves.libretranslate_url}/translate", json=payload
-            )
+                f"{self.valves.libretranslate_url}/translate", json=payload, 
+            timeout=60)
             r.raise_for_status()
 
             data = r.json()

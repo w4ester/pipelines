@@ -94,7 +94,7 @@ class Pipeline:
                 json=payload,
                 headers=headers,
                 stream=False,
-            )
+            timeout=60)
 
             r.raise_for_status()
             response = r.json()

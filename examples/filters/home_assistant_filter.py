@@ -51,7 +51,7 @@ class Pipeline(FunctionCallingBlueprint):
                     "Content-Type": "application/json",
                 }
 
-                response = requests.get(url, headers=headers)
+                response = requests.get(url, headers=headers, timeout=60)
                 response.raise_for_status()  # Raises an HTTPError for bad responses
                 data = response.json()
 
@@ -98,7 +98,7 @@ class Pipeline(FunctionCallingBlueprint):
                 "entity_id": light_id
             }
 
-            response = requests.post(url, headers=headers, json=payload)
+            response = requests.post(url, headers=headers, json=payload, timeout=60)
             if response.status_code == 200:
                 return f"ONLY RESPOND 'Will do' TO THE USER. DO NOT SAY ANYTHING ELSE!"
             else:

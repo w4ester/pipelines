@@ -144,7 +144,7 @@ class Pipeline:
             return f"Error: {e}"
 
     def stream_response(self, payload: dict) -> Generator:
-        response = requests.post(self.url, headers=self.headers, json=payload, stream=True)
+        response = requests.post(self.url, headers=self.headers, json=payload, stream=True, timeout=60)
 
         if response.status_code == 200:
             client = sseclient.SSEClient(response)
@@ -166,7 +166,7 @@ class Pipeline:
             raise Exception(f"Error: {response.status_code} - {response.text}")
 
     def get_completion(self, payload: dict) -> str:
-        response = requests.post(self.url, headers=self.headers, json=payload)
+        response = requests.post(self.url, headers=self.headers, json=payload, timeout=60)
         if response.status_code == 200:
             res = response.json()
             return res["content"][0]["text"] if "content" in res and res["content"] else ""

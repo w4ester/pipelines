@@ -43,7 +43,7 @@ class Pipeline:
                 url=f"{OLLAMA_BASE_URL}/v1/chat/completions",
                 json={**body, "model": MODEL},
                 stream=True,
-            )
+            timeout=60)
 
             r.raise_for_status()
 

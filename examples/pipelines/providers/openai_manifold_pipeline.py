@@ -56,8 +56,8 @@ class Pipeline:
                 headers["Content-Type"] = "application/json"
 
                 r = requests.get(
-                    f"{self.valves.OPENAI_API_BASE_URL}/models", headers=headers
-                )
+                    f"{self.valves.OPENAI_API_BASE_URL}/models", headers=headers, 
+                timeout=60)
 
                 models = r.json()
                 return [
@@ -111,7 +111,7 @@ class Pipeline:
                 json=payload,
                 headers=headers,
                 stream=True,
-            )
+            timeout=60)
 
             r.raise_for_status()
 

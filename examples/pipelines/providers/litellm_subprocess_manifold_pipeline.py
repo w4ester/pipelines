@@ -159,8 +159,8 @@ class Pipeline:
         if self.background_process:
             try:
                 r = requests.get(
-                    f"http://{self.valves.LITELLM_PROXY_HOST}:{self.valves.LITELLM_PROXY_PORT}/v1/models"
-                )
+                    f"http://{self.valves.LITELLM_PROXY_HOST}:{self.valves.LITELLM_PROXY_PORT}/v1/models", 
+                timeout=60)
                 models = r.json()
                 return [
                     {
@@ -199,7 +199,7 @@ class Pipeline:
                 url=f"http://{self.valves.LITELLM_PROXY_HOST}:{self.valves.LITELLM_PROXY_PORT}/v1/chat/completions",
                 json={**body, "model": model_id, "user": body["user"]["id"]},
                 stream=True,
-            )
+            timeout=60)
 
             r.raise_for_status()
 

@@ -63,8 +63,8 @@ class Pipeline:
                 headers["Content-Type"] = "application/json"
 
                 r = requests.get(
-                    f"{self.valves.COHERE_API_BASE_URL}/models", headers=headers
-                )
+                    f"{self.valves.COHERE_API_BASE_URL}/models", headers=headers, 
+                timeout=60)
 
                 models = r.json()
                 return [
@@ -121,7 +121,7 @@ class Pipeline:
             },
             headers=headers,
             stream=True,
-        )
+        timeout=60)
 
         r.raise_for_status()
 
@@ -155,7 +155,7 @@ class Pipeline:
                 "message": user_message,
             },
             headers=headers,
-        )
+        timeout=60)
 
         r.raise_for_status()
         data = r.json()
